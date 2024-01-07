@@ -4,23 +4,25 @@ namespace App\Traits;
 
 use Illuminate\Support\Str;
 
-trait UuidTrait {
-  protected static function boot(){
-
+trait UuidTrait
+{
+  protected static function boot()
+  {
     parent::boot();
-    static::creating(function ($model){
+    static::creating(function ($model) {
       $model->incrementing = false;
       $model->keyType = 'string';
       $model->{$model->getKeyName()} = Str::orderedUuid()->toString();
-      
-
     });
   }
 
-  public function getIncrementing(){
+  public function getIncrementing()
+  {
     return false;
   }
-  public function getKeyType(){
+
+  public function getKeyType()
+  {
     return 'string';
   }
 }
