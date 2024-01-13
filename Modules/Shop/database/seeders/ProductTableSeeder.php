@@ -5,14 +5,16 @@ namespace Modules\Shop\database\seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class ShopDatabaseSeeder extends Seeder
+class ProductTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
+
     public function run(): void
     {
         Model::unguard();
-        $this->call(ProductTableSeeder::class);
+        // $this->call([]);
+        $this->command->info("This Is Product Seeder");
     }
 }
