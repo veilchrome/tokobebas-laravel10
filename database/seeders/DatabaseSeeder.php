@@ -31,7 +31,8 @@ class DatabaseSeeder extends Seeder
         User::factory()->create();
         $this->command->info('sample user seeded.');
         // Lanjut Sampe Sini.
-
-        $this->call(ShopDatabaseSeeder::class);
+        if ($this->command->confirm('Do you want to seed some sample products?')) {
+            $this->call(ShopDatabaseSeeder::class);
+        }
     }
 }
