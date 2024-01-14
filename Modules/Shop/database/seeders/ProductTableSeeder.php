@@ -1,38 +1,41 @@
 <?php
 
-namespace Modules\Shop\database\seeders;
+namespace Modules\Shop\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use Modules\Shop\Entities\Category;
 use Modules\Shop\Entities\Attribute;
-use Modules\Shop\Entities\Product;
+use Modules\Shop\Entities\Category;
 use Modules\Shop\Entities\Tag;
+use Modules\Shop\Entities\Product;
+use Modules\Shop\Entities\ProductAttribute;
+use Modules\Shop\Entities\ProductInventory;
 
 class ProductTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     *
+     * @return void
      */
-
-    public function run(): void
+    public function run()
     {
         Model::unguard();
-        // $this->call([]);
 
         $user = User::first();
 
         Attribute::setDefaultAttributes();
-        $this->command->info('Default Atrribute seeded');
+        $this->command->info('Default attributes seeded.');
+        $attributeWeight = Attribute::where('code', Attribute::ATTR_WEIGHT)->first();
 
-        Category::factory(10)->create();
-        $this->command->info('Categories Seeded');
+        Category::factory()->count(10)->create();
+        $this->command->info('Categories seeded.');
         $randomCategoryIDs = Category::all()->random()->limit(2)->pluck('id');
 
-        Tag::factory(10)->count(10)->create();
-        $this->command->info('Tags Seeded');
-        $randomTagsIDs = Tag::all()->random()->limit(2)->pluck('id');
+        Tag::factory()->count(10)->create();
+        $this->command->info('Tags seeded.');
+        $randomTagIDs = Tag::all()->random()->limit(2)->pluck('id');
 
         for ($i = 1; $i <= 10; $i++) {
             $manageStock = (bool)random_int(0, 1);
@@ -42,10 +45,24 @@ class ProductTableSeeder extends Seeder
                 'manage_stock' => $manageStock,
             ]);
 
-            $product->categories()->sync(randomCategoryIDs);
-            $product->tags()->sync(randomTagsIDs);
+            $product->categories()->sync($randomCategoryIDs);
+            $product->tags()->sync($randomTagIDs);
 
-            // masih ada yang eror karena Undefined constant.
+            ProductAttribute::create([
+                'product_id' => $product->id,
+                'attribute_id' => $attributeWeight->id,
+                'integer_value' => random_int(200, 2000), // gram
+            ]);
+
+            if ($manageStock) {
+                ProductInventory::create([
+                    'product_id' => $product->id,
+                    'qty' => random_int(3, 20),
+                    'low_stock_threshold' => random_int(1, 3),
+                ]);
+            }
         }
+
+        $this->command->info('10 sample products seeded.');
     }
 }
