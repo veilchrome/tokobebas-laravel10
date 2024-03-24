@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Shop\app\Http\Controllers\ProductController;
 use Modules\Shop\app\Http\Controllers\ShopController;
 
 /*
@@ -12,7 +13,9 @@ use Modules\Shop\app\Http\Controllers\ShopController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
+
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
 Route::group([], function () {
     Route::resource('shop', ShopController::class)->names('shop');
