@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="css/main.css">
     <title>Tokobebas Shop's More</title>
-    <!-- Scripts -->
+    <!-- Scripts  -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/views/themes/tokobebas/assets/css/main.css', 'resources/views/themes/tokobebas/assets/plugins/jqueryui/jquery-ui.css', 'resources/views/themes/tokobebas/assets/js/main.js', 'resources/views/themes/tokobebas/assets/plugins/jqueryui/jquery-ui.min.js'])
 </head>
 

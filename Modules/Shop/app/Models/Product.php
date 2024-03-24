@@ -2,10 +2,9 @@
 
 namespace Modules\Shop\app\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use App\Traits\UuidTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
@@ -59,7 +58,7 @@ class Product extends Model
 
     protected static function newFactory()
     {
-        return \Modules\Shop\Database\factories\ProductFactory::new();
+        return \Modules\Shop\Database\factories\ProductFactory::new ();
     }
 
     public function user()

@@ -2,10 +2,9 @@
 
 namespace Modules\Shop\Entities;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use App\Traits\UuidTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
@@ -59,7 +58,7 @@ class Product extends Model
 
     protected static function newFactory()
     {
-        return \Modules\Shop\Database\factories\ProductFactory::new();
+        return \Modules\Shop\Database\factories\ProductFactory::new ();
     }
 
     public function user()
@@ -95,5 +94,11 @@ class Product extends Model
     public function images()
     {
         return $this->hasMany('Modules\Shop\Entities\ProductImage', 'product_id');
+    }
+
+    public function getPriceLabelAttribute()
+    {
+        return number_format($this->price);
+
     }
 }
