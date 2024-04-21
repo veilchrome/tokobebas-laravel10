@@ -4,6 +4,8 @@ namespace Modules\Shop\app\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\Shop\Repositories\Front\CategoryRepository;
+use Modules\Shop\Repositories\Front\Interfaces\CategoryRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interfaces\ProductRepositoryInterface;
 use Modules\Shop\Repositories\Front\ProductRepository;
 
@@ -121,6 +123,11 @@ class ShopServiceProvider extends ServiceProvider
         $this->app->bind(
             ProductRepositoryInterface::class,
             ProductRepository::class
+        );
+
+        $this->app->bind(
+            CategoryRepositoryInterface::class,
+            CategoryRepository::class
         );
 
     }

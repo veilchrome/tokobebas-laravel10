@@ -5,6 +5,7 @@ namespace Modules\Shop\app\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Modules\Shop\Repositories\Front\Interfaces\CategoryRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interfaces\ProductRepositoryInterface;
 
 class ProductController extends Controller
@@ -14,12 +15,17 @@ class ProductController extends Controller
      */
 
     protected $productRepository;
+    protected $categoryRepository;
 
-    public function __construct(ProductRepositoryInterface $productRepository)
+    public function __construct(ProductRepositoryInterface $productRepository, CategoryRepositoryInterface $categoryRepository)
     {
         parent::__construct();
 
         $this->productRepository = $productRepository;
+        $this->categoryRepository = $categoryRepository;
+
+        $this->data['categories'] = $this->categoryRepository->findAll();
+        // dd($this->data);
 
     }
 
