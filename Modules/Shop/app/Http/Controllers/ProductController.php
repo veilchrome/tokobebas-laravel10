@@ -3,8 +3,6 @@
 namespace Modules\Shop\app\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Modules\Shop\Repositories\Front\Interfaces\CategoryRepositoryInterface;
 use Modules\Shop\Repositories\Front\Interfaces\ProductRepositoryInterface;
 
@@ -40,51 +38,23 @@ class ProductController extends Controller
         return $this->loadTheme('products.index', $this->data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function category($categorySlug)
     {
-        return view('shop::create');
+        $category = $this->categoryRepository->findBySlug($categorySlug);
+
+        $options = [
+            'per_page' => $this->perPage,
+            'filter' => [
+                'category' => $categorySlug,
+
+            ],
+        ];
+
+        $this->data['products'] = $this->productRepository->findAll($options);
+        $this->data['category'] = $category;
+
+        return $this->loadTheme('products.category', $this->data);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
-    {
-        return view('shop::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('shop::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
